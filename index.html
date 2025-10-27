@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Play Music!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    
+      <audio id="musicadeFundo" loop>
+        <source src="JosephSacco-Resistance.mp3" type="audio/mpeg"> 
+      </audio>
+      
+      <h1 class="title">Play Music!</h1>
+      <p id="currentTime"></p>
+      <script>
+        const musicadeFundo = document.getElementById('musicadeFundo');
+
+        let musicaIniciada = false;
+        
+          function iniciaMusica(){
+            if(musicaIniciada){
+              // return; // Encerra a função caso a música já esteja tocando.
+              musicadeFundo.pause();
+              console.log("Pause");
+              musicaIniciada = false;
+            }else{
+              musicadeFundo.volume = 0.5; // Configura o volume (opcional, varia de 0.00 até 1.00)
+              const promise = musicadeFundo.play(); // Tenta iniciar a reprodução. O 'Play()' retorna uma promise
+              
+              if(promise !== undefined){
+                promise.then(() => {
+                  musicaIniciada = true;
+                  console.log('Música de fundo iniciada.');
+                }).catch(error) => {
+                  console.log('A reprodução automática foi impedida: ', error);
+                });
+              }
+            }
+          }
+        
+        document.addEventListener('keydown', (event) => {
+          if(event.key == ' '){
+            event.preventDefault();
+            iniciaMusica();
+          }
+        });
+      </script>
+  </body>
+</html>
